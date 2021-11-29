@@ -1,0 +1,21 @@
+{
+    "name": "adaka/carbon-fr-holidays",
+    "description": "FR Holidays Wrapper for the Carbon DateTime Library.",
+    "keywords": ["bank", "holiday", "holidays", "carbon"],
+    "authors": [
+        {
+            "name": "Pietro Ferraresi",
+            "email": "pietro.ferraresi@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "require": {
+        "nesbot/carbon": "^1.22"
+    },
+    "autoload": {
+        "psr-4": {
+            "FrHolidays\\": "src/"
+        }
+    }
+}
