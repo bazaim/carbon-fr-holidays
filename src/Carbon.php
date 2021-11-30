@@ -203,7 +203,7 @@ class Carbon extends \Carbon\Carbon {
      * @param null|int $year
      * @param null|string $timezone
      * 
-     * @return \Carbon\Carbon
+     * @return \Carbon\Carbon[]
      */
     public static function getHolidays($year = null, $timezone = null) {
         $year = is_null($year) ? date('Y') : $year;
