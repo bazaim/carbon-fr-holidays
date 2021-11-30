@@ -236,8 +236,6 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Check if its an french holiday. Comparing the date/month values of the two dates.
      *
-     * @param null $year
-     * 
      * @return bool
      */
     public function isHoliday() {
