@@ -203,7 +203,7 @@ class Carbon extends \Carbon\Carbon {
      * @param null|int    $year
      * @param null|string $timezone
      * 
-     * @return \Carbon\Carbon
+     * @return \Carbon\Carbon[]
      */
     public static function getHolidays($year = null, $timezone = null) {
         $year = is_null($year) ? date('Y') : $year;
@@ -258,8 +258,6 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Check if its an french holiday. Comparing the date/month values of the two dates.
      *
-     * @param null $year
-     * 
      * @return bool
      */
     public function isHoliday() {
