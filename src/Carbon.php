@@ -211,7 +211,7 @@ class Carbon extends \Carbon\Carbon {
             return self::$_cacheHolidays[$year];
         }
 
-        $paques = self::getPaques($year = null, $timezone);
+        $paques = self::getPaques($year, $timezone);
         self::$_cacheHolidays[$year] = [
             'paques' => $paques,
             'lundiDePaques' => self::getLundiDePaques($year, $timezone, $paques),
