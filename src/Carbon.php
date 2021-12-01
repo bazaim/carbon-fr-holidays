@@ -28,7 +28,7 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return Paques for the passed years, or the current year if null
      *
-     * @param null|int $year
+     * @param null|int    $year
      * @param null|string $timezone
      * 
      * @return \Carbon\Carbon
@@ -57,8 +57,8 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return lundiDePaques for the passed years, or the current year if null
      *
-     * @param null|int $year
-     * @param null|string $timezone
+     * @param null|int            $year
+     * @param null|string         $timezone
      * @param null|\Carbon\Carbon $paques
      * 
      * @return \Carbon\Carbon
@@ -70,8 +70,8 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return ascension for the passed years, or the current year if null
      *
-     * @param null|int $year
-     * @param null|string $timezone
+     * @param null|int            $year
+     * @param null|string         $timezone
      * @param null|\Carbon\Carbon $paques
      * 
      * @return \Carbon\Carbon
@@ -83,8 +83,8 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return pentecote for the passed years, or the current year if null
      *
-     * @param null|int $year
-     * @param null|string $timezone
+     * @param null|int            $year
+     * @param null|string         $timezone
      * @param null|\Carbon\Carbon $paques
      * 
      * @return \Carbon\Carbon
@@ -96,7 +96,7 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return jourDeLAn for the passed years, or the current year if null
      *
-     * @param null|int $year
+     * @param null|int    $year
      * @param null|string $timezone
      * 
      * @return \Carbon\Carbon
@@ -109,7 +109,7 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return feteDuTravail for the passed years, or the current year if null
      *
-     * @param null|int $year
+     * @param null|int    $year
      * @param null|string $timezone
      * 
      * @return \Carbon\Carbon
@@ -122,7 +122,7 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return feteDuTravail for the passed years, or the current year if null
      *
-     * @param null|int $year
+     * @param null|int    $year
      * @param null|string $timezone
      * 
      * @return \Carbon\Carbon
@@ -135,7 +135,7 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return feteNationale for the passed years, or the current year if null
      *
-     * @param null|int $year
+     * @param null|int    $year
      * @param null|string $timezone
      * 
      * @return \Carbon\Carbon
@@ -148,7 +148,7 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return assomption for the passed years, or the current year if null
      *
-     * @param null|int $year
+     * @param null|int    $year
      * @param null|string $timezone
      * 
      * @return \Carbon\Carbon
@@ -161,7 +161,7 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return toussaint for the passed years, or the current year if null
      *
-     * @param null|int $year
+     * @param null|int    $year
      * @param null|string $timezone
      * 
      * @return \Carbon\Carbon
@@ -174,7 +174,7 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return armistice for the passed years, or the current year if null
      *
-     * @param null|int $year
+     * @param null|int    $year
      * @param null|string $timezone
      * 
      * @return \Carbon\Carbon
@@ -187,7 +187,7 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return noel for the passed years, or the current year if null
      *
-     * @param null|int $year
+     * @param null|int    $year
      * @param null|string $timezone
      * 
      * @return \Carbon\Carbon
@@ -200,7 +200,7 @@ class Carbon extends \Carbon\Carbon {
     /**
      * Return all holidays for the passed years, or the current year if null
      *
-     * @param null|int $year
+     * @param null|int    $year
      * @param null|string $timezone
      * 
      * @return \Carbon\Carbon
@@ -231,6 +231,28 @@ class Carbon extends \Carbon\Carbon {
     }
 
 
+    /**
+     * Return all holidays for the passed years, or the current year if null
+     *
+     * @param string      $from
+     * @param string      $to
+     * @param null|string $timezone
+     * 
+     * @return \Carbon\Carbon[]
+     */
+    public static function getHolidaysRange($from, $to, $timezone = null) {
+        $fromYear = (new self($from, $timezone))->year;
+        $toYear = (new self($to, $timezone))->year;
+        
+        $holidays = [];
+        for ($year=$fromYear; $year<=$toYear; $year++) {
+            $holidays = array_merge(
+                $holidays,
+                self::getHolidays($year, $timezone)
+            );
+        }
+        return $holidays;
+    }
     
 
     /**
