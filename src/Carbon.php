@@ -262,7 +262,7 @@ class Carbon extends \Carbon\Carbon {
      */
     public function isHoliday() {
         foreach (self::getHolidays($this->year, $this->getTimezone()) as $holiday) {
-            if ($this->isBirthday($holiday['date'])) {
+            if ($this->isSameDay($holiday['date'])) {
                 return true;
             }
         }
