@@ -64,7 +64,7 @@ class Carbon extends \Carbon\Carbon {
      * @return \Carbon\Carbon
      */
     public static function getLundiDePaques($year = null, $timezone = null, $paques = null) {
-        return self::getPaques($year, $timezone).add(1, 'days');
+        return self::getPaques($year, $timezone)->add(1, 'days');
     }
 
     /**
@@ -77,7 +77,7 @@ class Carbon extends \Carbon\Carbon {
      * @return \Carbon\Carbon
      */
     public static function getAscension($year = null, $timezone = null, $paques = null) {
-        return self::getPaques($year, $timezone).add(39, 'days');
+        return self::getPaques($year, $timezone)->add(39, 'days');
     }
 
     /**
@@ -90,7 +90,7 @@ class Carbon extends \Carbon\Carbon {
      * @return \Carbon\Carbon
      */
     public static function getPentecote($year = null, $timezone = null, $paques = null) {
-        return self::getPaques($year, $timezone).add(50, 'days');
+        return self::getPaques($year, $timezone)->add(50, 'days');
     }
 
     /**
