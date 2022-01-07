@@ -2,7 +2,7 @@
 
 /**
  * FR Holidays Wrapper for the Carbon DateTime Library.
- * 
+ *
  * @category Carbon
  * @package  FrHolidays
  * @author   agence ADaKa <contact@adaka.fr>
@@ -14,7 +14,7 @@ namespace FrHolidays;
 
 /**
  * FR Holidays Wrapper for the Carbon DateTime Library.
- * 
+ *
  * @category Carbon
  * @package  FrHolidays
  * @author   agence ADaKa <contact@adaka.fr>
@@ -30,7 +30,7 @@ class Carbon extends \Carbon\Carbon {
      *
      * @param null|int    $year
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getPaques($year = null, $timezone = null) {
@@ -60,7 +60,7 @@ class Carbon extends \Carbon\Carbon {
      * @param null|int            $year
      * @param null|string         $timezone
      * @param null|\Carbon\Carbon $paques
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getLundiDePaques($year = null, $timezone = null, $paques = null) {
@@ -73,7 +73,7 @@ class Carbon extends \Carbon\Carbon {
      * @param null|int            $year
      * @param null|string         $timezone
      * @param null|\Carbon\Carbon $paques
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getAscension($year = null, $timezone = null, $paques = null) {
@@ -86,7 +86,7 @@ class Carbon extends \Carbon\Carbon {
      * @param null|int            $year
      * @param null|string         $timezone
      * @param null|\Carbon\Carbon $paques
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getPentecote($year = null, $timezone = null, $paques = null) {
@@ -98,7 +98,7 @@ class Carbon extends \Carbon\Carbon {
      *
      * @param null|int    $year
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getJourDeLAn($year = null, $timezone = null) {
@@ -111,7 +111,7 @@ class Carbon extends \Carbon\Carbon {
      *
      * @param null|int    $year
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getFeteDuTravail($year = null, $timezone = null) {
@@ -124,7 +124,7 @@ class Carbon extends \Carbon\Carbon {
      *
      * @param null|int    $year
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getVictoireDeAllies($year = null, $timezone = null) {
@@ -137,7 +137,7 @@ class Carbon extends \Carbon\Carbon {
      *
      * @param null|int    $year
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getFeteNationale($year = null, $timezone = null) {
@@ -150,7 +150,7 @@ class Carbon extends \Carbon\Carbon {
      *
      * @param null|int    $year
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getAssomption($year = null, $timezone = null) {
@@ -163,7 +163,7 @@ class Carbon extends \Carbon\Carbon {
      *
      * @param null|int    $year
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getToussaint($year = null, $timezone = null) {
@@ -176,7 +176,7 @@ class Carbon extends \Carbon\Carbon {
      *
      * @param null|int    $year
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getArmistice($year = null, $timezone = null) {
@@ -189,7 +189,7 @@ class Carbon extends \Carbon\Carbon {
      *
      * @param null|int    $year
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public static function getNoel($year = null, $timezone = null) {
@@ -202,7 +202,7 @@ class Carbon extends \Carbon\Carbon {
      *
      * @param null|int    $year
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon[]
      */
     public static function getHolidays($year = null, $timezone = null) {
@@ -226,7 +226,7 @@ class Carbon extends \Carbon\Carbon {
             'armistice' => self::getArmistice($year, $timezone),
             'noel' => self::getNoel($year, $timezone)
         ];
-        
+
         return self::$_cacheHolidays[$year];
     }
 
@@ -237,23 +237,29 @@ class Carbon extends \Carbon\Carbon {
      * @param string      $from
      * @param string      $to
      * @param null|string $timezone
-     * 
+     *
      * @return \Carbon\Carbon[]
      */
     public static function getHolidaysRange($from, $to, $timezone = null) {
-        $fromYear = (new self($from, $timezone))->year;
-        $toYear = (new self($to, $timezone))->year;
-        
+        $from = new self($from, $timezone);
+        $to = new self($to, $timezone);
+        $fromYear = $from->year;
+        $toYear = $to->year;
         $holidays = [];
+
         for ($year=$fromYear; $year<=$toYear; $year++) {
             $holidays = array_merge(
                 $holidays,
                 self::getHolidays($year, $timezone)
             );
         }
-        return $holidays;
+
+        return array_filter($holidays, function($holiday) use ($from, $to) {
+			return $holiday->greaterThanOrEqualTo($from)
+				&& $holiday->lessThanOrEqualTo($to);
+		});
     }
-    
+
 
     /**
      * Check if its an french holiday. Comparing the date/month values of the two dates.
@@ -266,7 +272,7 @@ class Carbon extends \Carbon\Carbon {
                 return true;
             }
         }
-        
+
         return false;
     }
 }
